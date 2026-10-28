@@ -21,6 +21,8 @@ import type { LayoutData } from './rendering-util/types.js';
 import type { ParseOptions, ParseResult, RenderResult } from './types.js';
 import type { DetailedError } from './utils.js';
 import utils, { isDetailedError } from './utils.js';
+import { mountInteractiveDocument, parseInteractiveDocument } from './interactiveDocuments.js';
+import type { InteractiveDocument, InteractiveDocumentHandle } from './interactiveDocuments.js';
 
 export type {
   AsyncIconLoader,
@@ -41,6 +43,7 @@ export type {
   SyncIconLoader,
   UnknownDiagramError,
 };
+export type { InteractiveDocument, InteractiveDocumentHandle };
 
 export interface RunOptions {
   /**
@@ -440,6 +443,11 @@ export interface Mermaid {
   mermaidAPI: typeof mermaidAPI;
   parse: typeof parse;
   render: typeof render;
+  parseInteractiveDocument: typeof parseInteractiveDocument;
+  mountInteractiveDocument: (
+    container: HTMLElement,
+    source: string | InteractiveDocument
+  ) => Promise<InteractiveDocumentHandle>;
   /**
    * @deprecated Use {@link initialize} and {@link run} instead.
    */
@@ -460,6 +468,9 @@ const mermaid: Mermaid = {
   mermaidAPI,
   parse,
   render,
+  parseInteractiveDocument,
+  mountInteractiveDocument: (container, source) =>
+    mountInteractiveDocument(container, source, render),
   init,
   run,
   registerExternalDiagrams,

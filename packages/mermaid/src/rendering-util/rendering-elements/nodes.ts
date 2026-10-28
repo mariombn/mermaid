@@ -53,6 +53,8 @@ export async function insertNode(
   }
   // Add data attributes for neo look support
   newEl.attr('data-look', handleUndefinedAttr(node.look));
+  // Stable model ID for interactive documents, independent of generated SVG IDs.
+  newEl.attr('data-mermaid-node-id', node.interactiveId ?? node.id);
 
   if (node.tooltip) {
     el.attr('title', node.tooltip);

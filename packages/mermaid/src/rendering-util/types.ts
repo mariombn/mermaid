@@ -13,6 +13,8 @@ export type CheckFitFunction = (text: MarkdownLine) => boolean;
 
 interface BaseNode {
   id: string;
+  /** Author-facing ID when the renderer's internal node ID differs from the source. */
+  interactiveId?: string;
   label?: string;
   description?: string[];
   /** Stereotype line rendered between label and description in multi-section labels, e.g. `[Container: Node.js]`. */
