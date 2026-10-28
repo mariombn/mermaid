@@ -426,6 +426,7 @@ export class ErDB implements DiagramDB {
         entityNode.colorIndex = colorIndex++;
         nodes.push({
           ...entityNode,
+          interactiveId: entityKey,
           parentId: parentDB.get(entityKey),
           isGroup: false,
         } as unknown as Node);
